@@ -6,24 +6,65 @@
       <!-- form for adding items -->
       <form class='' >
         <label for='name'>Item name</label>
-        <input id='name' type='text' name='' value=''>
+        <input id='name' type='text' name='' v-model='itemName'>
       </form>
-      <button type='button' name='addItem'>Add Item</button>
+      <button type='button' name='addItem' @click='newItem()'>Add Item</button>
+      <button type='button' name='deleteAll' @click='clearItems()'>Clear item list</button>
 
+      <button type='button' name='increase' @click='increase()'>increase</button>
+      <button type='button' name='addItem' @click='decrement()'>decrease</button>
+
+      <div> Main: {{ main }}</div>
       <!--  list of items -->
-      <ul id='itemList'>
 
+      <ul id='itemList'>
+        <li v-for='item in allItems' >
+          one item: {{ item.name }}
+        </li>
       </ul>
     </main>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+
   export default {
     name: 'landing-page',
+    data() {
+      return {
+        itemName: '',
+      };
+    },
+    computed: {
+      ...mapGetters([
+        'allItems',
+        'main',
+      ]),
+    },
+    beforeMount() {
+      this.$store.dispatch('loadItems');
+    },
     methods: {
       open(link) {
         this.$electron.shell.openExternal(link);
+      },
+      newItem() {
+        this.$store.dispatch('addItem');
+        this.$db.models.item.create({
+          name: this.itemName,
+          packed: false,
+        });
+        console.log('LandingPage this: ', this, 'db: ', this.$db);
+      },
+      clearItems() {
+        this.$store.dispatch('deleteAll');
+      },
+      increase() {
+        this.$store.dispatch('increase');
+      },
+      decrement() {
+        this.$store.dispatch('decrease');
       },
     },
   };

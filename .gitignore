@@ -1,4 +1,5 @@
 .DS_Store
+gear_list.sqlite
 dist/electron/*
 dist/web/*
 build/*

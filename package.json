@@ -57,8 +57,13 @@
     }
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.0",
+    "@fortawesome/free-solid-svg-icons": "^5.1.0",
+    "@fortawesome/vue-fontawesome": "^0.1.0",
     "axios": "^0.16.1",
     "electron-rebuild": "^1.7.3",
+    "i": "^0.3.6",
+    "npm": "^6.1.0",
     "sequelize": "^4.37.10",
     "sqlite3": "^4.0.0",
     "vue": "^2.3.3",
@@ -110,7 +115,9 @@
     "mocha": "^3.0.2",
     "multispinner": "^0.2.1",
     "node-loader": "^0.6.0",
+    "node-sass": "^4.9.0",
     "require-dir": "^0.3.0",
+    "sass-loader": "^7.0.3",
     "spectron": "^3.7.1",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",

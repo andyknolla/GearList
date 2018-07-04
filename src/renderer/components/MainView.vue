@@ -5,7 +5,6 @@
     </div>
     <div id='listHeader'>
       <div id='listTitle'>
-        <h3>Indian Creek </h3>
         <span class='season'> - Fall</span>
       </div>
       <p>Climbing trip</p>
@@ -16,9 +15,9 @@
       <div class='category'>
         <div class='category-header'>
           <h4>Climbing</h4>
-          <button class='show-form'>+</button>
+          <font-awesome-icon icon="plus-square" class='add-icon' @click='toggleItemForm()'/>
         </div>
-        <form class='new-item-form' >
+        <form class='new-item-form' v-show='showItemForm'>
           <input type='checkbox' class='packed'/>
           <input id='name' type='text' class='name-input' v-model='itemName'>
           <div class='new-item-buttons'>
@@ -53,12 +52,14 @@
 
 <script>
   import { mapGetters } from 'vuex';
+  // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
   export default {
     name: 'main-view',
     data() {
       return {
         itemName: '',
+        showItemForm: false,
       };
     },
     computed: {
@@ -80,7 +81,11 @@
           name: this.itemName,
           packed: false,
         });
-        console.log('LandingPage this: ', this, 'db: ', this.$db);
+        // console.log('LandingPage this: ', this, 'db: ', this.$db);
+      },
+      toggleItemForm() {
+        console.log('toggle');
+        this.showItemForm = !this.showItemForm;
       },
       clearItems() {
         this.$store.dispatch('deleteAll');
@@ -95,8 +100,8 @@
   };
 </script>
 
-<style>
-  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+<style lang='scss'>
+// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
   #MainView {
     background: lightyellow;
@@ -119,26 +124,26 @@
     align-items: center;
     white-space: nowrap;
     padding: 5px 15px;
-  }
-
-  #listTitle {
-    display: flex;
-    align-items: center;
-    font-size: 1.5rem;
-  }
-
-  .season {
-    font-weight: 300;
-    color: gray;
-  }
-  .trip-date {
-    text-align: right;
+    #listTitle {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+    }
+    .season {
+      font-weight: 300;
+      color: gray;
+    }
+    .trip-date {
+      text-align: right;
+    }
   }
 
   .category-header {
     display: flex;
+    align-items: center;
   }
-  .show-form {
+  .add-icon {
+    margin-left: 10px;
   }
   .new-item-form {
     display: flex;
@@ -150,27 +155,23 @@
     border: 1px solid lightgray;
     border-radius: 3px;
   }
-
   #itemList li {
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
     border-bottom: 1px solid lightgray;
   }
+  .item-left {
+    display: flex;
+    align-items: center;
+  }
+  .packed {
+    margin-right: 5px;
+  }
   .delete {
     font-size: 8px;
     height: 12px;
     width: 12px;
-  }
-
-  .item-left {
-    display: flex;
-    align-items: center;
-
-  }
-
-  .packed {
-    margin-right: 5px;
   }
 
 </style>

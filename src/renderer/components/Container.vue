@@ -33,7 +33,7 @@
 
   body {
     font-family: avenir, arial sans-serif;
-    color: #292929;
+    color: #424242;
   }
 
   #container {

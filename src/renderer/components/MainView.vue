@@ -22,7 +22,7 @@
           <input type='checkbox' class='packed'/>
           <input id='name' type='text' class='name-input' v-model='itemName'>
           <div class='new-item-buttons'>
-            <button type='button' name='addItem' @click='newItem()'>Add Item</button>
+            <button type='button' @click='newItem(itemName)'>Add Item</button>
           </div>
         </form>
 
@@ -38,7 +38,7 @@
       </div>
 
     </div>
-    <button type='button' name='deleteAll' @click='clearItems()'>Clear item list</button>
+    <button type='button' @click='clearItems()'>Clear item list</button>
 
 
       <!-- For Vuex testing -->
@@ -53,7 +53,6 @@
 
 <script>
   import { mapGetters } from 'vuex';
-  // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
   export default {
     name: 'main-view',
@@ -76,16 +75,11 @@
       open(link) {
         this.$electron.shell.openExternal(link);
       },
-      newItem() {
-        this.$store.dispatch('addItem');
-        this.$db.models.item.create({
-          name: this.itemName,
-          packed: false,
-        });
+      newItem(itemName) {
+        this.$store.dispatch('addItem', itemName);
         // console.log('LandingPage this: ', this, 'db: ', this.$db);
       },
       toggleItemForm() {
-        console.log('toggle');
         this.showItemForm = !this.showItemForm;
       },
       clearItems() {
@@ -129,6 +123,10 @@
       display: flex;
       align-items: center;
       font-size: 1.5rem;
+      font-weight: 300;
+      h3 {
+        font-weight: 300;
+      }
     }
     .season {
       font-weight: 300;
@@ -142,6 +140,10 @@
   .category-header {
     display: flex;
     align-items: center;
+    margin-bottom: 10px;
+    h4 {
+      font-weight: 300;
+    }
   }
   .add-icon {
     margin-left: 10px;
@@ -149,6 +151,7 @@
   .new-item-form {
     display: flex;
     align-items: flex-end;
+    margin-bottom: 5px;
   }
   .name-input {
     margin-right: 20px;

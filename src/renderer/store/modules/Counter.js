@@ -14,8 +14,13 @@ const mutations = {
   LOAD_ITEMS(state, items) {
     state.items = items;
   },
-  ADD_ITEM(state) {
-    state.items.push('new thing');
+  ADD_ITEM(state, itemName) {
+    state.items.push(
+      {
+        name: itemName,
+        packed: false,
+      },
+    );
   },
   DELETE_ITEMS(state) {
     state.items = [];
@@ -26,7 +31,6 @@ const mutations = {
   },
   INCREMENT_MAIN_COUNTER(state) {
     state.main += 1;
-    console.log('db in actions ', db);
   },
 };
 
@@ -36,8 +40,12 @@ const actions = {
       commit('LOAD_ITEMS', items);
     });
   },
-  addItem({ commit }) {
-    commit('ADD_ITEM');
+  addItem({ commit }, itemName) {
+    db.models.item.create({
+      name: itemName,
+      packed: false,
+    });
+    commit('ADD_ITEM', itemName);
   },
   deleteAll({ commit }) {
     commit('DELETE_ITEMS');
